@@ -90,4 +90,10 @@ var displayRepos = function(repos, searchTerm) {
     }
 };
 
+var getFeaturedRepos = function(language) {
+    var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+
+    fetch(apiUrl);
+}
+
 userFormEl.addEventListener("submit", formSubmitHandler);
