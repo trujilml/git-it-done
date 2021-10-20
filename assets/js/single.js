@@ -4,11 +4,19 @@ var limitWarningEl = document.querySelector("#limit-warning");
 
 
 var getRepoName = function() {
+    //grab repo name from url query string
     var queryString = document.location.search; 
     var repoName = queryString.split("=")[1];
-    getRepoIssues(repoName);
-    repoNameEl.textContent(repoName);
-}
+
+    if(repoName) {
+        //display repo name on the page
+        repoNameEl.textContent = repoName;
+        getRepoIssues(repoName);
+    } else {
+        //redirect to homepage if no repo was given
+        document.location.replace("./index.html");
+    }
+};
 
 var getRepoIssues = function(repo) {
     console.log(repo);
@@ -21,13 +29,12 @@ var getRepoIssues = function(repo) {
 
                 //check if api has paginated issues
                 if (response.headers.get("Link")) {
-                    console.log(displayWarning(repo));
+                    displayWarning(repo);
                 }
             });
         }
         else {
-            console.log(response)
-            alert("There was a problem with your request!");
+            document.location.replace("./index.html");
         }
     });
  };
